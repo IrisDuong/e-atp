@@ -1,0 +1,43 @@
+
+
+
+.top-header .authen-profile{
+    gap: 10px;
+    cursor: pointer;
+    background-color: #f3f3f3;
+    padding: 6px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 9px;
+}
+.top-header .authen-profile .ant-dropdown-trigger{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.top-header .authen-profile .ant-avatar{
+  background-color: rgb(65, 89, 133);
+}
+
+.top-header .language-selection{
+ display: flex;
+ align-items: center;
+}
+
+.top-header .language-selection div{
+    display: flex;
+    width: 80%;
+    border: 1px solid #e1e1e1;
+    padding: 9px 8px;
+    border-radius: 10px;
+}
+.top-header .language-selection img{
+  width: 12%;
+  border-radius: 50%;
+}
+.top-header .language-selection span{
+    line-height: 1;
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
