@@ -1,6 +1,11 @@
 
 
-
+.top-header .top-header-logo{
+  width: 40%;
+  height: 40%;
+  margin: 8px 0 0 50px;
+  float: left;
+}
 .top-header .authen-profile{
     gap: 10px;
     cursor: pointer;

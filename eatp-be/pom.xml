@@ -31,11 +31,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-			<dependency>
-                <groupId>com.eatp.common</groupId>
-                <artifactId>common-utils</artifactId>
-    			<version>0.0.1-SNAPSHOT</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
     <modules>
@@ -43,5 +38,6 @@
     	<module>api-gateway</module>
     	<module>common-utils</module>
     	<module>discovery</module>
+    	<module>auth-server</module>
     </modules>
 </project>
