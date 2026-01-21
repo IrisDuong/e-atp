@@ -1,11 +1,11 @@
 import React,{useEffect, useState} from 'react'
 import {Dropdown, Typography, Avatar, Space} from "antd";
-import {useSelector,useDispatch} from "react-redux"
-import { CiLogout } from "react-icons/ci";
+import {useSelector,useDispatch} from "react-redux";
 import { MdContactSupport } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaUserGear } from "react-icons/fa6";
 import { IoLogOutSharp } from "react-icons/io5";
+import { doLogout } from '../../../services/auth/auth.service';
 const {Text} = Typography;
 function AuthenProfile() {
     /** state */
@@ -33,7 +33,13 @@ function AuthenProfile() {
             icon:<IoLogOutSharp/>
         }
     ]
-    const getAvatar = ()=>{
+
+    const handleChangeActions = ({key}) =>{
+        switch(key){
+            case "logout":
+                doLogout();
+            default: console.log("authen profile actions");
+        }
     }
     useEffect(()=>{
         const splittedName =  authenticatedUser.name.split(" ");
@@ -48,7 +54,7 @@ function AuthenProfile() {
   return (
     <div className='authen-profile'>
             <Avatar>{authenProfile.avatar}</Avatar>
-            <Dropdown menu={{items:authenProfileActions}}>
+            <Dropdown menu={{items:authenProfileActions,onClick:handleChangeActions}}>
                 <div>
                     <Text>{authenProfile.name}</Text>
                     <IoIosArrowDown/>
