@@ -18,7 +18,8 @@ private static final long serialVersionUID = 0L;
   }
   private SysUserProtoRequest() {
     userName_ = "";
-    password_ = "";
+    rawPassword_ = "";
+    hashedPassword_ = "";
     email_ = "";
     firstName_ = "";
     lastName_ = "";
@@ -86,50 +87,89 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PASSWORD_FIELD_NUMBER = 2;
+  public static final int RAW_PASSWORD_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object password_ = "";
+  private volatile java.lang.Object rawPassword_ = "";
   /**
-   * <code>string password = 2;</code>
-   * @return The password.
+   * <code>string raw_password = 2;</code>
+   * @return The rawPassword.
    */
   @java.lang.Override
-  public java.lang.String getPassword() {
-    java.lang.Object ref = password_;
+  public java.lang.String getRawPassword() {
+    java.lang.Object ref = rawPassword_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      password_ = s;
+      rawPassword_ = s;
       return s;
     }
   }
   /**
-   * <code>string password = 2;</code>
-   * @return The bytes for password.
+   * <code>string raw_password = 2;</code>
+   * @return The bytes for rawPassword.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getPasswordBytes() {
-    java.lang.Object ref = password_;
+      getRawPasswordBytes() {
+    java.lang.Object ref = rawPassword_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      password_ = b;
+      rawPassword_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int EMAIL_FIELD_NUMBER = 3;
+  public static final int HASHED_PASSWORD_FIELD_NUMBER = 3;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object hashedPassword_ = "";
+  /**
+   * <code>string hashed_password = 3;</code>
+   * @return The hashedPassword.
+   */
+  @java.lang.Override
+  public java.lang.String getHashedPassword() {
+    java.lang.Object ref = hashedPassword_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      hashedPassword_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string hashed_password = 3;</code>
+   * @return The bytes for hashedPassword.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getHashedPasswordBytes() {
+    java.lang.Object ref = hashedPassword_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      hashedPassword_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int EMAIL_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
   private volatile java.lang.Object email_ = "";
   /**
-   * <code>string email = 3;</code>
+   * <code>string email = 4;</code>
    * @return The email.
    */
   @java.lang.Override
@@ -146,7 +186,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string email = 3;</code>
+   * <code>string email = 4;</code>
    * @return The bytes for email.
    */
   @java.lang.Override
@@ -164,11 +204,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FIRST_NAME_FIELD_NUMBER = 4;
+  public static final int FIRST_NAME_FIELD_NUMBER = 5;
   @SuppressWarnings("serial")
   private volatile java.lang.Object firstName_ = "";
   /**
-   * <code>string first_name = 4;</code>
+   * <code>string first_name = 5;</code>
    * @return The firstName.
    */
   @java.lang.Override
@@ -185,7 +225,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string first_name = 4;</code>
+   * <code>string first_name = 5;</code>
    * @return The bytes for firstName.
    */
   @java.lang.Override
@@ -203,11 +243,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int LAST_NAME_FIELD_NUMBER = 5;
+  public static final int LAST_NAME_FIELD_NUMBER = 6;
   @SuppressWarnings("serial")
   private volatile java.lang.Object lastName_ = "";
   /**
-   * <code>string last_name = 5;</code>
+   * <code>string last_name = 6;</code>
    * @return The lastName.
    */
   @java.lang.Override
@@ -224,7 +264,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string last_name = 5;</code>
+   * <code>string last_name = 6;</code>
    * @return The bytes for lastName.
    */
   @java.lang.Override
@@ -242,11 +282,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PHONE_NO_FIELD_NUMBER = 6;
+  public static final int PHONE_NO_FIELD_NUMBER = 7;
   @SuppressWarnings("serial")
   private volatile java.lang.Object phoneNo_ = "";
   /**
-   * <code>string phone_no = 6;</code>
+   * <code>string phone_no = 7;</code>
    * @return The phoneNo.
    */
   @java.lang.Override
@@ -263,7 +303,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string phone_no = 6;</code>
+   * <code>string phone_no = 7;</code>
    * @return The bytes for phoneNo.
    */
   @java.lang.Override
@@ -281,10 +321,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ROLE_NO_FIELD_NUMBER = 7;
+  public static final int ROLE_NO_FIELD_NUMBER = 8;
   private int roleNo_ = 0;
   /**
-   * <code>int32 role_no = 7;</code>
+   * <code>int32 role_no = 8;</code>
    * @return The roleNo.
    */
   @java.lang.Override
@@ -292,11 +332,11 @@ private static final long serialVersionUID = 0L;
     return roleNo_;
   }
 
-  public static final int AVATAR_URL_FIELD_NUMBER = 8;
+  public static final int AVATAR_URL_FIELD_NUMBER = 9;
   @SuppressWarnings("serial")
   private volatile java.lang.Object avatarUrl_ = "";
   /**
-   * <code>string avatar_url = 8;</code>
+   * <code>string avatar_url = 9;</code>
    * @return The avatarUrl.
    */
   @java.lang.Override
@@ -313,7 +353,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string avatar_url = 8;</code>
+   * <code>string avatar_url = 9;</code>
    * @return The bytes for avatarUrl.
    */
   @java.lang.Override
@@ -331,11 +371,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int SUB_FIELD_NUMBER = 9;
+  public static final int SUB_FIELD_NUMBER = 10;
   @SuppressWarnings("serial")
   private volatile java.lang.Object sub_ = "";
   /**
-   * <code>string sub = 9;</code>
+   * <code>string sub = 10;</code>
    * @return The sub.
    */
   @java.lang.Override
@@ -352,7 +392,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string sub = 9;</code>
+   * <code>string sub = 10;</code>
    * @return The bytes for sub.
    */
   @java.lang.Override
@@ -370,10 +410,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ACTIVE_FIELD_NUMBER = 10;
+  public static final int ACTIVE_FIELD_NUMBER = 11;
   private boolean active_ = false;
   /**
-   * <code>bool active = 10;</code>
+   * <code>bool active = 11;</code>
    * @return The active.
    */
   @java.lang.Override
@@ -381,10 +421,10 @@ private static final long serialVersionUID = 0L;
     return active_;
   }
 
-  public static final int DELETABLE_FIELD_NUMBER = 11;
+  public static final int DELETABLE_FIELD_NUMBER = 12;
   private boolean deletable_ = false;
   /**
-   * <code>bool deletable = 11;</code>
+   * <code>bool deletable = 12;</code>
    * @return The deletable.
    */
   @java.lang.Override
@@ -392,10 +432,10 @@ private static final long serialVersionUID = 0L;
     return deletable_;
   }
 
-  public static final int LOCKED_TIMES_FIELD_NUMBER = 12;
+  public static final int LOCKED_TIMES_FIELD_NUMBER = 13;
   private int lockedTimes_ = 0;
   /**
-   * <code>int32 locked_times = 12;</code>
+   * <code>int32 locked_times = 13;</code>
    * @return The lockedTimes.
    */
   @java.lang.Override
@@ -420,38 +460,41 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(userName_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userName_);
     }
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(password_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(rawPassword_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, rawPassword_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hashedPassword_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, hashedPassword_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(email_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, email_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, email_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(firstName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, firstName_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, firstName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(lastName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, lastName_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, lastName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(phoneNo_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, phoneNo_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, phoneNo_);
     }
     if (roleNo_ != 0) {
-      output.writeInt32(7, roleNo_);
+      output.writeInt32(8, roleNo_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(avatarUrl_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, avatarUrl_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, avatarUrl_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sub_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, sub_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 10, sub_);
     }
     if (active_ != false) {
-      output.writeBool(10, active_);
+      output.writeBool(11, active_);
     }
     if (deletable_ != false) {
-      output.writeBool(11, deletable_);
+      output.writeBool(12, deletable_);
     }
     if (lockedTimes_ != 0) {
-      output.writeInt32(12, lockedTimes_);
+      output.writeInt32(13, lockedTimes_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -465,42 +508,45 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(userName_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userName_);
     }
-    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(password_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(rawPassword_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, rawPassword_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hashedPassword_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, hashedPassword_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(email_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, email_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, email_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(firstName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, firstName_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, firstName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(lastName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, lastName_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, lastName_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(phoneNo_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, phoneNo_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, phoneNo_);
     }
     if (roleNo_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(7, roleNo_);
+        .computeInt32Size(8, roleNo_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(avatarUrl_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, avatarUrl_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, avatarUrl_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sub_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, sub_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, sub_);
     }
     if (active_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(10, active_);
+        .computeBoolSize(11, active_);
     }
     if (deletable_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(11, deletable_);
+        .computeBoolSize(12, deletable_);
     }
     if (lockedTimes_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(12, lockedTimes_);
+        .computeInt32Size(13, lockedTimes_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -519,8 +565,10 @@ private static final long serialVersionUID = 0L;
 
     if (!getUserName()
         .equals(other.getUserName())) return false;
-    if (!getPassword()
-        .equals(other.getPassword())) return false;
+    if (!getRawPassword()
+        .equals(other.getRawPassword())) return false;
+    if (!getHashedPassword()
+        .equals(other.getHashedPassword())) return false;
     if (!getEmail()
         .equals(other.getEmail())) return false;
     if (!getFirstName()
@@ -554,8 +602,10 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + USER_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getUserName().hashCode();
-    hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
-    hash = (53 * hash) + getPassword().hashCode();
+    hash = (37 * hash) + RAW_PASSWORD_FIELD_NUMBER;
+    hash = (53 * hash) + getRawPassword().hashCode();
+    hash = (37 * hash) + HASHED_PASSWORD_FIELD_NUMBER;
+    hash = (53 * hash) + getHashedPassword().hashCode();
     hash = (37 * hash) + EMAIL_FIELD_NUMBER;
     hash = (53 * hash) + getEmail().hashCode();
     hash = (37 * hash) + FIRST_NAME_FIELD_NUMBER;
@@ -710,7 +760,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       bitField0_ = 0;
       userName_ = "";
-      password_ = "";
+      rawPassword_ = "";
+      hashedPassword_ = "";
       email_ = "";
       firstName_ = "";
       lastName_ = "";
@@ -758,36 +809,39 @@ private static final long serialVersionUID = 0L;
         result.userName_ = userName_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.password_ = password_;
+        result.rawPassword_ = rawPassword_;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
-        result.email_ = email_;
+        result.hashedPassword_ = hashedPassword_;
       }
       if (((from_bitField0_ & 0x00000008) != 0)) {
-        result.firstName_ = firstName_;
+        result.email_ = email_;
       }
       if (((from_bitField0_ & 0x00000010) != 0)) {
-        result.lastName_ = lastName_;
+        result.firstName_ = firstName_;
       }
       if (((from_bitField0_ & 0x00000020) != 0)) {
-        result.phoneNo_ = phoneNo_;
+        result.lastName_ = lastName_;
       }
       if (((from_bitField0_ & 0x00000040) != 0)) {
-        result.roleNo_ = roleNo_;
+        result.phoneNo_ = phoneNo_;
       }
       if (((from_bitField0_ & 0x00000080) != 0)) {
-        result.avatarUrl_ = avatarUrl_;
+        result.roleNo_ = roleNo_;
       }
       if (((from_bitField0_ & 0x00000100) != 0)) {
-        result.sub_ = sub_;
+        result.avatarUrl_ = avatarUrl_;
       }
       if (((from_bitField0_ & 0x00000200) != 0)) {
-        result.active_ = active_;
+        result.sub_ = sub_;
       }
       if (((from_bitField0_ & 0x00000400) != 0)) {
-        result.deletable_ = deletable_;
+        result.active_ = active_;
       }
       if (((from_bitField0_ & 0x00000800) != 0)) {
+        result.deletable_ = deletable_;
+      }
+      if (((from_bitField0_ & 0x00001000) != 0)) {
         result.lockedTimes_ = lockedTimes_;
       }
     }
@@ -841,29 +895,34 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000001;
         onChanged();
       }
-      if (!other.getPassword().isEmpty()) {
-        password_ = other.password_;
+      if (!other.getRawPassword().isEmpty()) {
+        rawPassword_ = other.rawPassword_;
         bitField0_ |= 0x00000002;
+        onChanged();
+      }
+      if (!other.getHashedPassword().isEmpty()) {
+        hashedPassword_ = other.hashedPassword_;
+        bitField0_ |= 0x00000004;
         onChanged();
       }
       if (!other.getEmail().isEmpty()) {
         email_ = other.email_;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
       }
       if (!other.getFirstName().isEmpty()) {
         firstName_ = other.firstName_;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
       }
       if (!other.getLastName().isEmpty()) {
         lastName_ = other.lastName_;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
       }
       if (!other.getPhoneNo().isEmpty()) {
         phoneNo_ = other.phoneNo_;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
       }
       if (other.getRoleNo() != 0) {
@@ -871,12 +930,12 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getAvatarUrl().isEmpty()) {
         avatarUrl_ = other.avatarUrl_;
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         onChanged();
       }
       if (!other.getSub().isEmpty()) {
         sub_ = other.sub_;
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         onChanged();
       }
       if (other.getActive() != false) {
@@ -920,60 +979,65 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 10
             case 18: {
-              password_ = input.readStringRequireUtf8();
+              rawPassword_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000002;
               break;
             } // case 18
             case 26: {
-              email_ = input.readStringRequireUtf8();
+              hashedPassword_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000004;
               break;
             } // case 26
             case 34: {
-              firstName_ = input.readStringRequireUtf8();
+              email_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000008;
               break;
             } // case 34
             case 42: {
-              lastName_ = input.readStringRequireUtf8();
+              firstName_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000010;
               break;
             } // case 42
             case 50: {
-              phoneNo_ = input.readStringRequireUtf8();
+              lastName_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000020;
               break;
             } // case 50
-            case 56: {
-              roleNo_ = input.readInt32();
+            case 58: {
+              phoneNo_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000040;
               break;
-            } // case 56
-            case 66: {
-              avatarUrl_ = input.readStringRequireUtf8();
+            } // case 58
+            case 64: {
+              roleNo_ = input.readInt32();
               bitField0_ |= 0x00000080;
               break;
-            } // case 66
+            } // case 64
             case 74: {
-              sub_ = input.readStringRequireUtf8();
+              avatarUrl_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000100;
               break;
             } // case 74
-            case 80: {
-              active_ = input.readBool();
+            case 82: {
+              sub_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000200;
               break;
-            } // case 80
+            } // case 82
             case 88: {
-              deletable_ = input.readBool();
+              active_ = input.readBool();
               bitField0_ |= 0x00000400;
               break;
             } // case 88
             case 96: {
-              lockedTimes_ = input.readInt32();
+              deletable_ = input.readBool();
               bitField0_ |= 0x00000800;
               break;
             } // case 96
+            case 104: {
+              lockedTimes_ = input.readInt32();
+              bitField0_ |= 0x00001000;
+              break;
+            } // case 104
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1063,81 +1127,153 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object password_ = "";
+    private java.lang.Object rawPassword_ = "";
     /**
-     * <code>string password = 2;</code>
-     * @return The password.
+     * <code>string raw_password = 2;</code>
+     * @return The rawPassword.
      */
-    public java.lang.String getPassword() {
-      java.lang.Object ref = password_;
+    public java.lang.String getRawPassword() {
+      java.lang.Object ref = rawPassword_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        password_ = s;
+        rawPassword_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
+     * <code>string raw_password = 2;</code>
+     * @return The bytes for rawPassword.
      */
     public com.google.protobuf.ByteString
-        getPasswordBytes() {
-      java.lang.Object ref = password_;
+        getRawPasswordBytes() {
+      java.lang.Object ref = rawPassword_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        password_ = b;
+        rawPassword_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string password = 2;</code>
-     * @param value The password to set.
+     * <code>string raw_password = 2;</code>
+     * @param value The rawPassword to set.
      * @return This builder for chaining.
      */
-    public Builder setPassword(
+    public Builder setRawPassword(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      password_ = value;
+      rawPassword_ = value;
       bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>string password = 2;</code>
+     * <code>string raw_password = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder clearPassword() {
-      password_ = getDefaultInstance().getPassword();
+    public Builder clearRawPassword() {
+      rawPassword_ = getDefaultInstance().getRawPassword();
       bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }
     /**
-     * <code>string password = 2;</code>
-     * @param value The bytes for password to set.
+     * <code>string raw_password = 2;</code>
+     * @param value The bytes for rawPassword to set.
      * @return This builder for chaining.
      */
-    public Builder setPasswordBytes(
+    public Builder setRawPasswordBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      password_ = value;
+      rawPassword_ = value;
       bitField0_ |= 0x00000002;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object hashedPassword_ = "";
+    /**
+     * <code>string hashed_password = 3;</code>
+     * @return The hashedPassword.
+     */
+    public java.lang.String getHashedPassword() {
+      java.lang.Object ref = hashedPassword_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        hashedPassword_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string hashed_password = 3;</code>
+     * @return The bytes for hashedPassword.
+     */
+    public com.google.protobuf.ByteString
+        getHashedPasswordBytes() {
+      java.lang.Object ref = hashedPassword_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        hashedPassword_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string hashed_password = 3;</code>
+     * @param value The hashedPassword to set.
+     * @return This builder for chaining.
+     */
+    public Builder setHashedPassword(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      hashedPassword_ = value;
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string hashed_password = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearHashedPassword() {
+      hashedPassword_ = getDefaultInstance().getHashedPassword();
+      bitField0_ = (bitField0_ & ~0x00000004);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string hashed_password = 3;</code>
+     * @param value The bytes for hashedPassword to set.
+     * @return This builder for chaining.
+     */
+    public Builder setHashedPasswordBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      hashedPassword_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
 
     private java.lang.Object email_ = "";
     /**
-     * <code>string email = 3;</code>
+     * <code>string email = 4;</code>
      * @return The email.
      */
     public java.lang.String getEmail() {
@@ -1153,7 +1289,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string email = 3;</code>
+     * <code>string email = 4;</code>
      * @return The bytes for email.
      */
     public com.google.protobuf.ByteString
@@ -1170,7 +1306,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string email = 3;</code>
+     * <code>string email = 4;</code>
      * @param value The email to set.
      * @return This builder for chaining.
      */
@@ -1178,22 +1314,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       email_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
     /**
-     * <code>string email = 3;</code>
+     * <code>string email = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearEmail() {
       email_ = getDefaultInstance().getEmail();
-      bitField0_ = (bitField0_ & ~0x00000004);
+      bitField0_ = (bitField0_ & ~0x00000008);
       onChanged();
       return this;
     }
     /**
-     * <code>string email = 3;</code>
+     * <code>string email = 4;</code>
      * @param value The bytes for email to set.
      * @return This builder for chaining.
      */
@@ -1202,14 +1338,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       email_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
 
     private java.lang.Object firstName_ = "";
     /**
-     * <code>string first_name = 4;</code>
+     * <code>string first_name = 5;</code>
      * @return The firstName.
      */
     public java.lang.String getFirstName() {
@@ -1225,7 +1361,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string first_name = 4;</code>
+     * <code>string first_name = 5;</code>
      * @return The bytes for firstName.
      */
     public com.google.protobuf.ByteString
@@ -1242,7 +1378,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string first_name = 4;</code>
+     * <code>string first_name = 5;</code>
      * @param value The firstName to set.
      * @return This builder for chaining.
      */
@@ -1250,22 +1386,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       firstName_ = value;
-      bitField0_ |= 0x00000008;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
     /**
-     * <code>string first_name = 4;</code>
+     * <code>string first_name = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearFirstName() {
       firstName_ = getDefaultInstance().getFirstName();
-      bitField0_ = (bitField0_ & ~0x00000008);
+      bitField0_ = (bitField0_ & ~0x00000010);
       onChanged();
       return this;
     }
     /**
-     * <code>string first_name = 4;</code>
+     * <code>string first_name = 5;</code>
      * @param value The bytes for firstName to set.
      * @return This builder for chaining.
      */
@@ -1274,14 +1410,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       firstName_ = value;
-      bitField0_ |= 0x00000008;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
 
     private java.lang.Object lastName_ = "";
     /**
-     * <code>string last_name = 5;</code>
+     * <code>string last_name = 6;</code>
      * @return The lastName.
      */
     public java.lang.String getLastName() {
@@ -1297,7 +1433,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string last_name = 5;</code>
+     * <code>string last_name = 6;</code>
      * @return The bytes for lastName.
      */
     public com.google.protobuf.ByteString
@@ -1314,7 +1450,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string last_name = 5;</code>
+     * <code>string last_name = 6;</code>
      * @param value The lastName to set.
      * @return This builder for chaining.
      */
@@ -1322,22 +1458,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       lastName_ = value;
-      bitField0_ |= 0x00000010;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
     /**
-     * <code>string last_name = 5;</code>
+     * <code>string last_name = 6;</code>
      * @return This builder for chaining.
      */
     public Builder clearLastName() {
       lastName_ = getDefaultInstance().getLastName();
-      bitField0_ = (bitField0_ & ~0x00000010);
+      bitField0_ = (bitField0_ & ~0x00000020);
       onChanged();
       return this;
     }
     /**
-     * <code>string last_name = 5;</code>
+     * <code>string last_name = 6;</code>
      * @param value The bytes for lastName to set.
      * @return This builder for chaining.
      */
@@ -1346,14 +1482,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       lastName_ = value;
-      bitField0_ |= 0x00000010;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
 
     private java.lang.Object phoneNo_ = "";
     /**
-     * <code>string phone_no = 6;</code>
+     * <code>string phone_no = 7;</code>
      * @return The phoneNo.
      */
     public java.lang.String getPhoneNo() {
@@ -1369,7 +1505,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string phone_no = 6;</code>
+     * <code>string phone_no = 7;</code>
      * @return The bytes for phoneNo.
      */
     public com.google.protobuf.ByteString
@@ -1386,7 +1522,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string phone_no = 6;</code>
+     * <code>string phone_no = 7;</code>
      * @param value The phoneNo to set.
      * @return This builder for chaining.
      */
@@ -1394,22 +1530,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       phoneNo_ = value;
-      bitField0_ |= 0x00000020;
+      bitField0_ |= 0x00000040;
       onChanged();
       return this;
     }
     /**
-     * <code>string phone_no = 6;</code>
+     * <code>string phone_no = 7;</code>
      * @return This builder for chaining.
      */
     public Builder clearPhoneNo() {
       phoneNo_ = getDefaultInstance().getPhoneNo();
-      bitField0_ = (bitField0_ & ~0x00000020);
+      bitField0_ = (bitField0_ & ~0x00000040);
       onChanged();
       return this;
     }
     /**
-     * <code>string phone_no = 6;</code>
+     * <code>string phone_no = 7;</code>
      * @param value The bytes for phoneNo to set.
      * @return This builder for chaining.
      */
@@ -1418,14 +1554,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       phoneNo_ = value;
-      bitField0_ |= 0x00000020;
+      bitField0_ |= 0x00000040;
       onChanged();
       return this;
     }
 
     private int roleNo_ ;
     /**
-     * <code>int32 role_no = 7;</code>
+     * <code>int32 role_no = 8;</code>
      * @return The roleNo.
      */
     @java.lang.Override
@@ -1433,23 +1569,23 @@ private static final long serialVersionUID = 0L;
       return roleNo_;
     }
     /**
-     * <code>int32 role_no = 7;</code>
+     * <code>int32 role_no = 8;</code>
      * @param value The roleNo to set.
      * @return This builder for chaining.
      */
     public Builder setRoleNo(int value) {
 
       roleNo_ = value;
-      bitField0_ |= 0x00000040;
+      bitField0_ |= 0x00000080;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 role_no = 7;</code>
+     * <code>int32 role_no = 8;</code>
      * @return This builder for chaining.
      */
     public Builder clearRoleNo() {
-      bitField0_ = (bitField0_ & ~0x00000040);
+      bitField0_ = (bitField0_ & ~0x00000080);
       roleNo_ = 0;
       onChanged();
       return this;
@@ -1457,7 +1593,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object avatarUrl_ = "";
     /**
-     * <code>string avatar_url = 8;</code>
+     * <code>string avatar_url = 9;</code>
      * @return The avatarUrl.
      */
     public java.lang.String getAvatarUrl() {
@@ -1473,7 +1609,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string avatar_url = 8;</code>
+     * <code>string avatar_url = 9;</code>
      * @return The bytes for avatarUrl.
      */
     public com.google.protobuf.ByteString
@@ -1490,7 +1626,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string avatar_url = 8;</code>
+     * <code>string avatar_url = 9;</code>
      * @param value The avatarUrl to set.
      * @return This builder for chaining.
      */
@@ -1498,22 +1634,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       avatarUrl_ = value;
-      bitField0_ |= 0x00000080;
+      bitField0_ |= 0x00000100;
       onChanged();
       return this;
     }
     /**
-     * <code>string avatar_url = 8;</code>
+     * <code>string avatar_url = 9;</code>
      * @return This builder for chaining.
      */
     public Builder clearAvatarUrl() {
       avatarUrl_ = getDefaultInstance().getAvatarUrl();
-      bitField0_ = (bitField0_ & ~0x00000080);
+      bitField0_ = (bitField0_ & ~0x00000100);
       onChanged();
       return this;
     }
     /**
-     * <code>string avatar_url = 8;</code>
+     * <code>string avatar_url = 9;</code>
      * @param value The bytes for avatarUrl to set.
      * @return This builder for chaining.
      */
@@ -1522,14 +1658,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       avatarUrl_ = value;
-      bitField0_ |= 0x00000080;
+      bitField0_ |= 0x00000100;
       onChanged();
       return this;
     }
 
     private java.lang.Object sub_ = "";
     /**
-     * <code>string sub = 9;</code>
+     * <code>string sub = 10;</code>
      * @return The sub.
      */
     public java.lang.String getSub() {
@@ -1545,7 +1681,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string sub = 9;</code>
+     * <code>string sub = 10;</code>
      * @return The bytes for sub.
      */
     public com.google.protobuf.ByteString
@@ -1562,7 +1698,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string sub = 9;</code>
+     * <code>string sub = 10;</code>
      * @param value The sub to set.
      * @return This builder for chaining.
      */
@@ -1570,22 +1706,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       sub_ = value;
-      bitField0_ |= 0x00000100;
+      bitField0_ |= 0x00000200;
       onChanged();
       return this;
     }
     /**
-     * <code>string sub = 9;</code>
+     * <code>string sub = 10;</code>
      * @return This builder for chaining.
      */
     public Builder clearSub() {
       sub_ = getDefaultInstance().getSub();
-      bitField0_ = (bitField0_ & ~0x00000100);
+      bitField0_ = (bitField0_ & ~0x00000200);
       onChanged();
       return this;
     }
     /**
-     * <code>string sub = 9;</code>
+     * <code>string sub = 10;</code>
      * @param value The bytes for sub to set.
      * @return This builder for chaining.
      */
@@ -1594,14 +1730,14 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       sub_ = value;
-      bitField0_ |= 0x00000100;
+      bitField0_ |= 0x00000200;
       onChanged();
       return this;
     }
 
     private boolean active_ ;
     /**
-     * <code>bool active = 10;</code>
+     * <code>bool active = 11;</code>
      * @return The active.
      */
     @java.lang.Override
@@ -1609,23 +1745,23 @@ private static final long serialVersionUID = 0L;
       return active_;
     }
     /**
-     * <code>bool active = 10;</code>
+     * <code>bool active = 11;</code>
      * @param value The active to set.
      * @return This builder for chaining.
      */
     public Builder setActive(boolean value) {
 
       active_ = value;
-      bitField0_ |= 0x00000200;
+      bitField0_ |= 0x00000400;
       onChanged();
       return this;
     }
     /**
-     * <code>bool active = 10;</code>
+     * <code>bool active = 11;</code>
      * @return This builder for chaining.
      */
     public Builder clearActive() {
-      bitField0_ = (bitField0_ & ~0x00000200);
+      bitField0_ = (bitField0_ & ~0x00000400);
       active_ = false;
       onChanged();
       return this;
@@ -1633,7 +1769,7 @@ private static final long serialVersionUID = 0L;
 
     private boolean deletable_ ;
     /**
-     * <code>bool deletable = 11;</code>
+     * <code>bool deletable = 12;</code>
      * @return The deletable.
      */
     @java.lang.Override
@@ -1641,23 +1777,23 @@ private static final long serialVersionUID = 0L;
       return deletable_;
     }
     /**
-     * <code>bool deletable = 11;</code>
+     * <code>bool deletable = 12;</code>
      * @param value The deletable to set.
      * @return This builder for chaining.
      */
     public Builder setDeletable(boolean value) {
 
       deletable_ = value;
-      bitField0_ |= 0x00000400;
+      bitField0_ |= 0x00000800;
       onChanged();
       return this;
     }
     /**
-     * <code>bool deletable = 11;</code>
+     * <code>bool deletable = 12;</code>
      * @return This builder for chaining.
      */
     public Builder clearDeletable() {
-      bitField0_ = (bitField0_ & ~0x00000400);
+      bitField0_ = (bitField0_ & ~0x00000800);
       deletable_ = false;
       onChanged();
       return this;
@@ -1665,7 +1801,7 @@ private static final long serialVersionUID = 0L;
 
     private int lockedTimes_ ;
     /**
-     * <code>int32 locked_times = 12;</code>
+     * <code>int32 locked_times = 13;</code>
      * @return The lockedTimes.
      */
     @java.lang.Override
@@ -1673,23 +1809,23 @@ private static final long serialVersionUID = 0L;
       return lockedTimes_;
     }
     /**
-     * <code>int32 locked_times = 12;</code>
+     * <code>int32 locked_times = 13;</code>
      * @param value The lockedTimes to set.
      * @return This builder for chaining.
      */
     public Builder setLockedTimes(int value) {
 
       lockedTimes_ = value;
-      bitField0_ |= 0x00000800;
+      bitField0_ |= 0x00001000;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 locked_times = 12;</code>
+     * <code>int32 locked_times = 13;</code>
      * @return This builder for chaining.
      */
     public Builder clearLockedTimes() {
-      bitField0_ = (bitField0_ & ~0x00000800);
+      bitField0_ = (bitField0_ & ~0x00001000);
       lockedTimes_ = 0;
       onChanged();
       return this;

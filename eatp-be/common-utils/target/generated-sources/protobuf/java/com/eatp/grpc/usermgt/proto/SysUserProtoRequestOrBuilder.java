@@ -21,109 +21,121 @@ public interface SysUserProtoRequestOrBuilder extends
       getUserNameBytes();
 
   /**
-   * <code>string password = 2;</code>
-   * @return The password.
+   * <code>string raw_password = 2;</code>
+   * @return The rawPassword.
    */
-  java.lang.String getPassword();
+  java.lang.String getRawPassword();
   /**
-   * <code>string password = 2;</code>
-   * @return The bytes for password.
+   * <code>string raw_password = 2;</code>
+   * @return The bytes for rawPassword.
    */
   com.google.protobuf.ByteString
-      getPasswordBytes();
+      getRawPasswordBytes();
 
   /**
-   * <code>string email = 3;</code>
+   * <code>string hashed_password = 3;</code>
+   * @return The hashedPassword.
+   */
+  java.lang.String getHashedPassword();
+  /**
+   * <code>string hashed_password = 3;</code>
+   * @return The bytes for hashedPassword.
+   */
+  com.google.protobuf.ByteString
+      getHashedPasswordBytes();
+
+  /**
+   * <code>string email = 4;</code>
    * @return The email.
    */
   java.lang.String getEmail();
   /**
-   * <code>string email = 3;</code>
+   * <code>string email = 4;</code>
    * @return The bytes for email.
    */
   com.google.protobuf.ByteString
       getEmailBytes();
 
   /**
-   * <code>string first_name = 4;</code>
+   * <code>string first_name = 5;</code>
    * @return The firstName.
    */
   java.lang.String getFirstName();
   /**
-   * <code>string first_name = 4;</code>
+   * <code>string first_name = 5;</code>
    * @return The bytes for firstName.
    */
   com.google.protobuf.ByteString
       getFirstNameBytes();
 
   /**
-   * <code>string last_name = 5;</code>
+   * <code>string last_name = 6;</code>
    * @return The lastName.
    */
   java.lang.String getLastName();
   /**
-   * <code>string last_name = 5;</code>
+   * <code>string last_name = 6;</code>
    * @return The bytes for lastName.
    */
   com.google.protobuf.ByteString
       getLastNameBytes();
 
   /**
-   * <code>string phone_no = 6;</code>
+   * <code>string phone_no = 7;</code>
    * @return The phoneNo.
    */
   java.lang.String getPhoneNo();
   /**
-   * <code>string phone_no = 6;</code>
+   * <code>string phone_no = 7;</code>
    * @return The bytes for phoneNo.
    */
   com.google.protobuf.ByteString
       getPhoneNoBytes();
 
   /**
-   * <code>int32 role_no = 7;</code>
+   * <code>int32 role_no = 8;</code>
    * @return The roleNo.
    */
   int getRoleNo();
 
   /**
-   * <code>string avatar_url = 8;</code>
+   * <code>string avatar_url = 9;</code>
    * @return The avatarUrl.
    */
   java.lang.String getAvatarUrl();
   /**
-   * <code>string avatar_url = 8;</code>
+   * <code>string avatar_url = 9;</code>
    * @return The bytes for avatarUrl.
    */
   com.google.protobuf.ByteString
       getAvatarUrlBytes();
 
   /**
-   * <code>string sub = 9;</code>
+   * <code>string sub = 10;</code>
    * @return The sub.
    */
   java.lang.String getSub();
   /**
-   * <code>string sub = 9;</code>
+   * <code>string sub = 10;</code>
    * @return The bytes for sub.
    */
   com.google.protobuf.ByteString
       getSubBytes();
 
   /**
-   * <code>bool active = 10;</code>
+   * <code>bool active = 11;</code>
    * @return The active.
    */
   boolean getActive();
 
   /**
-   * <code>bool deletable = 11;</code>
+   * <code>bool deletable = 12;</code>
    * @return The deletable.
    */
   boolean getDeletable();
 
   /**
-   * <code>int32 locked_times = 12;</code>
+   * <code>int32 locked_times = 13;</code>
    * @return The lockedTimes.
    */
   int getLockedTimes();
