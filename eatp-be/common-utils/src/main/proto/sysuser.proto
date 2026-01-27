@@ -6,17 +6,18 @@ option java_outer_classname = "SysUserProto";
 
 message SysUserProtoRequest {
   string user_name = 1;
-  string password = 2;
-  string email = 3;
-  string first_name = 4;
-  string last_name = 5;
-  string phone_no = 6;
-  int32 role_no = 7;
-  string avatar_url = 8;
-  string sub = 9;
-  bool active = 10;
-  bool deletable = 11;
-  int32 locked_times = 12;
+  string raw_password = 2;
+  string hashed_password = 3;
+  string email = 4;
+  string first_name = 5;
+  string last_name = 6;
+  string phone_no = 7;
+  int32 role_no = 8;
+  string avatar_url = 9;
+  string sub = 10;
+  bool active = 11;
+  bool deletable = 12;
+  int32 locked_times = 13;
 }
 
 message SysUserProtoResponse {

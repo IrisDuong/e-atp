@@ -34,19 +34,20 @@ public final class SysUserProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rsysuser.proto\"\355\001\n\023SysUserProtoRequest\022" +
-      "\021\n\tuser_name\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\022\r\n\005" +
-      "email\030\003 \001(\t\022\022\n\nfirst_name\030\004 \001(\t\022\021\n\tlast_" +
-      "name\030\005 \001(\t\022\020\n\010phone_no\030\006 \001(\t\022\017\n\007role_no\030" +
-      "\007 \001(\005\022\022\n\navatar_url\030\010 \001(\t\022\013\n\003sub\030\t \001(\t\022\016" +
-      "\n\006active\030\n \001(\010\022\021\n\tdeletable\030\013 \001(\010\022\024\n\014loc" +
-      "ked_times\030\014 \001(\005\"Z\n\024SysUserProtoResponse\022" +
-      "\021\n\tuser_name\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\017\n\007rol" +
-      "e_no\030\003 \001(\005\022\017\n\007created\030\004 \001(\0102X\n\023SysUserPr" +
-      "otoService\022A\n\022createSysUserProto\022\024.SysUs" +
-      "erProtoRequest\032\025.SysUserProtoResponseB-\n" +
-      "\033com.eatp.grpc.usermgt.protoB\014SysUserPro" +
-      "toP\001b\006proto3"
+      "\n\rsysuser.proto\"\212\002\n\023SysUserProtoRequest\022" +
+      "\021\n\tuser_name\030\001 \001(\t\022\024\n\014raw_password\030\002 \001(\t" +
+      "\022\027\n\017hashed_password\030\003 \001(\t\022\r\n\005email\030\004 \001(\t" +
+      "\022\022\n\nfirst_name\030\005 \001(\t\022\021\n\tlast_name\030\006 \001(\t\022" +
+      "\020\n\010phone_no\030\007 \001(\t\022\017\n\007role_no\030\010 \001(\005\022\022\n\nav" +
+      "atar_url\030\t \001(\t\022\013\n\003sub\030\n \001(\t\022\016\n\006active\030\013 " +
+      "\001(\010\022\021\n\tdeletable\030\014 \001(\010\022\024\n\014locked_times\030\r" +
+      " \001(\005\"Z\n\024SysUserProtoResponse\022\021\n\tuser_nam" +
+      "e\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\017\n\007role_no\030\003 \001(\005\022" +
+      "\017\n\007created\030\004 \001(\0102X\n\023SysUserProtoService\022" +
+      "A\n\022createSysUserProto\022\024.SysUserProtoRequ" +
+      "est\032\025.SysUserProtoResponseB-\n\033com.eatp.g" +
+      "rpc.usermgt.protoB\014SysUserProtoP\001b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -57,7 +58,7 @@ public final class SysUserProto {
     internal_static_SysUserProtoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SysUserProtoRequest_descriptor,
-        new java.lang.String[] { "UserName", "Password", "Email", "FirstName", "LastName", "PhoneNo", "RoleNo", "AvatarUrl", "Sub", "Active", "Deletable", "LockedTimes", });
+        new java.lang.String[] { "UserName", "RawPassword", "HashedPassword", "Email", "FirstName", "LastName", "PhoneNo", "RoleNo", "AvatarUrl", "Sub", "Active", "Deletable", "LockedTimes", });
     internal_static_SysUserProtoResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_SysUserProtoResponse_fieldAccessorTable = new

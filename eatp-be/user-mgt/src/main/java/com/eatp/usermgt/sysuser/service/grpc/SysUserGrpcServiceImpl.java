@@ -24,7 +24,7 @@ public class SysUserGrpcServiceImpl extends SysUserProtoServiceImplBase{
 	public void createSysUserProto(SysUserProtoRequest request, StreamObserver<SysUserProtoResponse> responseObserver) {
 		SysUserDtoRequest userDtoRequest = SysUserDtoRequest.builder()
 				.userName(request.getUserName())
-				.password(request.getPassword())
+				.password(request.getHashedPassword())
 				.email(request.getEmail())
 				.firstName(request.getFirstName())
 				.lastName(request.getLastName())

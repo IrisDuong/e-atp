@@ -18,6 +18,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import com.eatp.common.enums.UserRole;
 import com.eatp.common.utils.CookieUtils;
+import com.eatp.common.utils.SystemUtils;
 import com.eatp.grpc.usermgt.proto.SysUserProtoRequest;
 import com.eatp.grpc.usermgt.proto.SysUserProtoServiceGrpc.SysUserProtoServiceBlockingStub;
 
@@ -56,12 +57,14 @@ public class Oauth2AuthenticationSuccessHandler implements ServerAuthenticationS
 		
 		return reactiveOAuth2AuthorizedClientService.loadAuthorizedClient(clientId, principalName)
 				.flatMap(oauth2AuthorizedClient->{
+					String defaultPassword = SystemUtils.defaultUserPassword();
 					OAuth2User oAuth2User = oAuth2AuthenticationToken.getPrincipal();
 					SysUserProtoRequest sysUserProtoRequest = SysUserProtoRequest.newBuilder()
 							.setEmail(oAuth2User.getAttribute("email"))
 							.setFirstName(oAuth2User.getAttribute("name"))
 							.setAvatarUrl(oAuth2User.getAttribute("picture"))
-							.setPassword(passwordEncoder.encode("12345"))
+							.setRawPassword(defaultPassword)
+							.setHashedPassword(passwordEncoder.encode(defaultPassword))
 							.setActive(true)
 							.setDeletable(false)
 							.setLockedTimes(0)
