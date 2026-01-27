@@ -6,15 +6,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.server.WebFilterExchange;
 import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
+import com.eatp.common.enums.UserRole;
 import com.eatp.common.utils.CookieUtils;
+import com.eatp.grpc.usermgt.proto.SysUserProtoRequest;
+import com.eatp.grpc.usermgt.proto.SysUserProtoServiceGrpc.SysUserProtoServiceBlockingStub;
 
 import reactor.core.publisher.Mono;
 
@@ -22,14 +27,21 @@ import reactor.core.publisher.Mono;
 public class Oauth2AuthenticationSuccessHandler implements ServerAuthenticationSuccessHandler{
 
 	private final ReactiveOAuth2AuthorizedClientService reactiveOAuth2AuthorizedClientService;
-	
-	
-	private final String feURL = "http://localhost:3000";
+	private final SysUserProtoServiceBlockingStub stub;
+	private final PasswordEncoder passwordEncoder;
+
+	@Value("${url.front-end}")
+	private String feURL;
 	
 	public Oauth2AuthenticationSuccessHandler(
-			ReactiveOAuth2AuthorizedClientService reactiveOAuth2AuthorizedClientService) {
+			ReactiveOAuth2AuthorizedClientService reactiveOAuth2AuthorizedClientService
+		   ,SysUserProtoServiceBlockingStub stub
+		   ,PasswordEncoder passwordEncoder
+			) {
 		super();
 		this.reactiveOAuth2AuthorizedClientService = reactiveOAuth2AuthorizedClientService;
+		this.stub = stub;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 
@@ -44,6 +56,22 @@ public class Oauth2AuthenticationSuccessHandler implements ServerAuthenticationS
 		
 		return reactiveOAuth2AuthorizedClientService.loadAuthorizedClient(clientId, principalName)
 				.flatMap(oauth2AuthorizedClient->{
+					OAuth2User oAuth2User = oAuth2AuthenticationToken.getPrincipal();
+					SysUserProtoRequest sysUserProtoRequest = SysUserProtoRequest.newBuilder()
+							.setEmail(oAuth2User.getAttribute("email"))
+							.setFirstName(oAuth2User.getAttribute("name"))
+							.setAvatarUrl(oAuth2User.getAttribute("picture"))
+							.setPassword(passwordEncoder.encode("12345"))
+							.setActive(true)
+							.setDeletable(false)
+							.setLockedTimes(0)
+							.setPhoneNo("078424053")
+							.setSub(oAuth2User.getAttribute("sub"))
+							.setUserName(oAuth2User.getAttribute("email"))
+							.setRoleNo(UserRole.EMP.getRoleNo())
+							.build();
+					stub.createSysUserProto(sysUserProtoRequest);
+					
 					OAuth2AccessToken accessToken = oauth2AuthorizedClient.getAccessToken();
 					String accessTokenValue = accessToken.getTokenValue();
 					CookieUtils.setReactiveCookie(response, CookieUtils.ACCESS_TOKEN_COOKIE_NAME, accessTokenValue, 1200000);

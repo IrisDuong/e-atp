@@ -2,10 +2,13 @@ package com.eatp.apigateway.config;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
@@ -13,14 +16,20 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class GatewayConfig {
-	
-	private final String feURL = "http://localhost:3000";
+
+	@Value("${url.front-end}")
+	private String feURL;
 	
 	@Bean
 	public WebClient.Builder webBuilder(){
 		return WebClient.builder();
 	}
+
 	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	@Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
@@ -51,6 +60,11 @@ public class GatewayConfig {
 						.path("/setting-mgt/**")
 						.filters(f->f.stripPrefix(1))
 						.uri("lb://setting-mgt")
+				)
+				.route("USER-MGT", r->r
+						.path("/user-mgt/**")
+						.filters(f->f.stripPrefix(1))
+						.uri("lb://user-mgt")
 				)
 				.build();
 				

@@ -33,8 +33,9 @@ public class AuthenController {
 
 	@Value("${url.gateway}")
 	private String gatewayURL;
-	
-	private final String feURL = "http://localhost:3000";
+
+	@Value("${url.front-end}")
+	private String feURL;
 	
 	@GetMapping("/logout/handle")
 	public Mono<Void> handleLogout(ServerWebExchange webExchange){
@@ -60,7 +61,7 @@ public class AuthenController {
 					response.getHeaders().setLocation(URI.create(feURL.concat("?isLogged=false")));
 				}));
 	}
-	@GetMapping("/getAuthenticatedUser")
+	@GetMapping("/authenticated-user-info")
 	public Mono<ResponseEntity<ApiResponse<AuthenticatedUser>>> getAuthenticatedUser(@AuthenticationPrincipal OAuth2User oAuth2User){
 		if(!ObjectUtils.isEmpty(oAuth2User)) {
 
