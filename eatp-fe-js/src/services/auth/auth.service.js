@@ -3,7 +3,7 @@ import { BE_URI,MICRO_SERVICE_PATH} from "../../utils/config/app.config";
 
 export const getAuthentication = async ()=>{
     try {
-        let response = await AXIOS_INSTANCE.get(`${BE_URI}/authen/getAuthenticatedUser`);
+        let response = await AXIOS_INSTANCE.get(`${BE_URI}/authen/authenticated-user-info`);
         let result = response.data.data
         return result;
     } catch (error) {
