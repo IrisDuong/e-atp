@@ -1,12 +1,19 @@
 package com.eatp.usermgt.sysuser.service.grpc;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.eatp.grpc.usermgt.proto.SysUserProtoRequest;
-import com.eatp.grpc.usermgt.proto.SysUserProtoResponse;
-import com.eatp.grpc.usermgt.proto.SysUserProtoServiceGrpc.SysUserProtoServiceImplBase;
+import com.eatp.common.enums.MailTemplate;
+import com.eatp.grpc.notification.MailProtoRequest;
+import com.eatp.grpc.notification.MailProtoServiceGrpc.MailProtoServiceBlockingStub;
+import com.eatp.grpc.usermgt.SysUserProtoRequest;
+import com.eatp.grpc.usermgt.SysUserProtoResponse;
+import com.eatp.grpc.usermgt.SysUserProtoServiceGrpc.SysUserProtoServiceImplBase;
 import com.eatp.usermgt.sysuser.dto.SysUserDtoRequest;
 import com.eatp.usermgt.sysuser.service.SysUserService;
+import com.google.protobuf.Any;
+import com.google.protobuf.StringValue;
 
 import io.grpc.stub.StreamObserver;
 
@@ -14,10 +21,18 @@ import io.grpc.stub.StreamObserver;
 public class SysUserGrpcServiceImpl extends SysUserProtoServiceImplBase{
 
 	private final SysUserService sysUserService;
+	private final MailProtoServiceBlockingStub mailProtoServiceBlockingStub;
+
+	@Value("${url.gateway}")
+	String gatewayURL;
 	
-	public SysUserGrpcServiceImpl(SysUserService sysUserService) {
+	public SysUserGrpcServiceImpl(
+			SysUserService sysUserService
+		   ,MailProtoServiceBlockingStub mailProtoServiceBlockingStub
+	) {
 		super();
 		this.sysUserService = sysUserService;
+		this.mailProtoServiceBlockingStub = mailProtoServiceBlockingStub;
 	}
 
 	@Override
@@ -31,12 +46,27 @@ public class SysUserGrpcServiceImpl extends SysUserProtoServiceImplBase{
 				.phoneNo(request.getPhoneNo())
 				.roleNo(request.getRoleNo())
 				.avatarUrl(request.getAvatarUrl())
-				.sub(request.getSub())
+				.sub(request.getSub()) 
 				.active(Boolean.TRUE)
 				.deletable(Boolean.FALSE)
 				.lockedTimes(0)
 				.build();
-		sysUserService.createNewUser(userDtoRequest);
+		try {
+			// create new user
+			sysUserService.createNewUser(userDtoRequest);
+			
+			// send mail to new user
+			MailProtoRequest mailProtoRequest = MailProtoRequest.newBuilder()
+					.setRecipient(request.getEmail())
+					.setTemplateCode(MailTemplate.NEW_USER.getTemplateCode())
+					.putVariables("fullName", Any.pack(StringValue.of(request.getFirstName())))
+					.putVariables("userName", Any.pack(StringValue.of(request.getUserName())))
+					.putVariables("changePasswordUrl", Any.pack(StringValue.of(gatewayURL.concat("/user-mgt/sys-user/password/change"))))
+					.build();
+			mailProtoServiceBlockingStub.sendMail(mailProtoRequest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		SysUserProtoResponse response = SysUserProtoResponse.newBuilder()
 				.setUserName(userDtoRequest.getUserName())

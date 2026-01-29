@@ -2,6 +2,13 @@ package com.eatp.common.utils;
 
 import java.security.SecureRandom;
 
+import com.eatp.common.enums.MailTemplate;
+import com.google.protobuf.Any;
+import com.google.protobuf.BoolValue;
+import com.google.protobuf.Int32Value;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.StringValue;
+
 public class SystemUtils {
 
 	public static String defaultUserPassword() {
@@ -12,5 +19,12 @@ public class SystemUtils {
 			password.append(CHARS.charAt(random.nextInt(CHARS.length())));
 		}
 		return password.toString();
+	}
+	
+	public static String getMailSubject(MailTemplate mailTemplate) {
+		return switch(mailTemplate) {
+			case NEW_USER -> "[User Management] Welcome newcommer to ATP";
+			default->"[NOSUBJECT]";
+		};
 	}
 }

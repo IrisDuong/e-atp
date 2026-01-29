@@ -15,7 +15,7 @@ import com.eatp.usermgt.sysuser.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/in-user")
+@RequestMapping("/sys-user")
 @RequiredArgsConstructor
 public class SysUserController {
 
