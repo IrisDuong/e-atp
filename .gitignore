@@ -14,3 +14,6 @@
 git-guideline.png
 
 *.key
+# Maven
+**/target/
+

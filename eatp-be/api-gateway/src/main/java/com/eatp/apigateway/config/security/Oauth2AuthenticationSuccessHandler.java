@@ -19,8 +19,9 @@ import org.springframework.web.server.ServerWebExchange;
 import com.eatp.common.enums.UserRole;
 import com.eatp.common.utils.CookieUtils;
 import com.eatp.common.utils.SystemUtils;
-import com.eatp.grpc.usermgt.proto.SysUserProtoRequest;
-import com.eatp.grpc.usermgt.proto.SysUserProtoServiceGrpc.SysUserProtoServiceBlockingStub;
+import com.eatp.grpc.usermgt.SysUserProtoRequest;
+import com.eatp.grpc.usermgt.SysUserProtoServiceGrpc;
+import com.eatp.grpc.usermgt.SysUserProtoServiceGrpc.SysUserProtoServiceBlockingStub;
 
 import reactor.core.publisher.Mono;
 
