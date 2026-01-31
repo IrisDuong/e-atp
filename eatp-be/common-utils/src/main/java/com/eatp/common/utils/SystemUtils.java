@@ -2,6 +2,8 @@ package com.eatp.common.utils;
 
 import java.security.SecureRandom;
 
+import org.springframework.util.ObjectUtils;
+
 import com.eatp.common.enums.MailTemplate;
 import com.google.protobuf.Any;
 import com.google.protobuf.BoolValue;
@@ -26,5 +28,12 @@ public class SystemUtils {
 			case NEW_USER -> "[User Management] Welcome newcommer to ATP";
 			default->"[NOSUBJECT]";
 		};
+	}
+	
+	public static boolean isEmptyData(Object param) {
+		if(ObjectUtils.isEmpty(param)) {
+			return true;
+		}
+		return false;
 	}
 }
