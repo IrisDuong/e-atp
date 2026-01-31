@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ApplicationExecption {
+public class ApplicationException {
 
 	public static ResponseEntity<BusinessException> doResponse(BusinessException ex){
 		return new ResponseEntity<BusinessException>(ex, HttpStatus.valueOf(ex.getHttpCode()));
