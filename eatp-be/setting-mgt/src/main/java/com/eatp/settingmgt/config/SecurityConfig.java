@@ -1,5 +1,7 @@
 package com.eatp.settingmgt.config;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,8 +47,14 @@ public class SecurityConfig {
 	public BearerTokenResolver bearerTokenResolver() {
 		return request->{
 			return  Stream.of(request.getCookies())
-					.filter(c-> CookieUtils.ACCESS_TOKEN_COOKIE_NAME.equals(c.getName()))
-					.map(Cookie::getValue).findFirst().orElse(null);
+					.filter(c-> CookieUtils.ACCESS_TOKEN_COOKIE_NAME.equals(c.getName())).findFirst()
+					.map(Cookie::getValue).orElse(null);
+//			return Optional.ofNullable(request.getCookies())
+//			        .stream()
+//			        .flatMap(Arrays::stream)
+//			        .filter(c -> "access_token".equals(c.getName()))
+//			        .findFirst()
+//			        .map(Cookie::getValue).orElse(null);
 		};
 	}
 }

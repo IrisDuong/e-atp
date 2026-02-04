@@ -32,26 +32,27 @@ public class CommonCodeServiceImpl implements CommonCodeService{
 	@Override
 	@Transactional
 	public boolean createCommonCode(CommonCodeRequestDTO param) throws Exception {
-		
-		if(commonCodeRepo.existsById(param.getCommonCodeNo())) {
-			log.info("DUPLICATE COMMON CODE NO  = {}", param.getCommonCodeNo());
-			throw new BadRequestException("Duplicate common code");
-		}
-		
-		List<LocaleInputCode> localeInputCodes = param.getLocaleInputCodes().stream()
-				.map(localeInputCodeService::buildEntityFromDto)
-				.toList();
-		localeInputCodeService.saveListLocaleInputCode(new ArrayList<>(localeInputCodes));
-		
-		CommonCode commonCodeToSave = new  CommonCode();
-		commonCodeToSave.setCodeTypeNo(param.getCodeTypeNo());
-		commonCodeToSave.setUseStatusNo(param.getUseStatusNo());
-		commonCodeToSave.setFeatureCodeNo(param.getFeatureCodeNo());
-		commonCodeToSave.setLocaleCodeNo(localeInputCodes.get(0).getId().getLocaleCodeNo());
 		try {
+			
+			if(commonCodeRepo.existsById(param.getCommonCodeNo())) {
+				log.info("DUPLICATE COMMON CODE NO  = {}", param.getCommonCodeNo());
+				throw new BadRequestException("Duplicate common code");
+			}
+			
+			List<LocaleInputCode> localeInputCodes = param.getLocaleInputCodes().stream()
+					.map(localeInputCodeService::buildEntityFromDto)
+					.toList();
+			localeInputCodeService.saveListLocaleInputCode(new ArrayList<>(localeInputCodes));
+			
+			CommonCode commonCodeToSave = new  CommonCode();
+			commonCodeToSave.setCodeTypeNo(param.getCodeTypeNo());
+			commonCodeToSave.setUseStatusNo(param.getUseStatusNo());
+			commonCodeToSave.setFeatureCodeNo(param.getFeatureCodeNo());
+			commonCodeToSave.setLocaleCodeNo(localeInputCodes.get(0).getId().getLocaleCodeNo());
 			commonCodeRepo.save(commonCodeToSave);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("Create common code failed");
 		}
 	}
