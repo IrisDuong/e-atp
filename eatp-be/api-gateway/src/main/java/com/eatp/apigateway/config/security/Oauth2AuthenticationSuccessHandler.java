@@ -15,8 +15,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.server.WebFilterExchange;
 import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import com.eatp.common.enums.AppTokenType;
 import com.eatp.common.enums.UserRole;
 import com.eatp.common.utils.CookieUtils;
 import com.eatp.common.utils.SystemUtils;
