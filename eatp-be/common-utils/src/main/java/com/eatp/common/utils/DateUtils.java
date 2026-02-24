@@ -1,7 +1,9 @@
 package com.eatp.common.utils;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.eatp.common.enums.DateFormat;
 
@@ -19,4 +21,9 @@ public class DateUtils {
 		return isTimestamp? covertToString(LocalDateTime.now(), DateFormat.ISO_DATE_TIME)
 				: covertToString(LocalDate.now(), DateFormat.ISO_DATE_TIME);
 	}
+	
+	public static Date getNowAtDate() {
+		return Date.from(Instant.now());
+	}
+
 }
