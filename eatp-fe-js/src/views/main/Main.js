@@ -33,7 +33,8 @@ function Main() {
             }else{
                 checkLogin();
             }
-        }},[]);
+        }
+    },[]);
     if(isLogged === null) return <div></div>
     return isLogged ? <Home/> : <Navigate to="/authen/login" replace={true}/>;
 }

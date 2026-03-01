@@ -12,7 +12,8 @@ export const getAuthentication = async ()=>{
 }
 
 export const doLogin = ()=>{
-    window.location.href=`${BE_URI}/${MICRO_SERVICE_PATH.AUTH_SERVER}/oauth2/authorization/google`;
+    // window.location.href=`${BE_URI}/${MICRO_SERVICE_PATH.AUTH_SERVER}/oauth2/authorization/google`;
+    window.location.href=`${BE_URI}/oauth2/authorization/gateway-client`;
 }
 
 export const doLogout = ()=>{

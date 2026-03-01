@@ -42,14 +42,16 @@ function AuthenProfile() {
         }
     }
     useEffect(()=>{
-        const splittedName =  authenticatedUser.name.split(" ");
-        const lastName = splittedName[splittedName.length-1].trim().substring(0,1);
-        const avatar =  authenticatedUser.avatar ? authenticatedUser.avatar :lastName;
-        setAuthenProfile({
-                name: authenticatedUser.name,
-                email: authenticatedUser.email,
-                avatar
-        })
+        if(authenticatedUser){
+            const splittedName =  authenticatedUser.name.split(" ");
+            const lastName = splittedName[splittedName.length-1].trim().substring(0,1);
+            const avatar =  authenticatedUser.avatar ? authenticatedUser.avatar :lastName;
+            setAuthenProfile({
+                    name: authenticatedUser.name,
+                    email: authenticatedUser.email,
+                    avatar
+            })
+        }
     },authenticatedUser)
   return (
     <div className='authen-profile'>

@@ -73,8 +73,8 @@ function MainMenu() {
         ),
         getItem(navLinkRendering("","Setting",<CiSettings/>,"group"),"settingMngt",null
                     ,[
-                        getItem(navLinkRendering("/baseData","Base Data","","single"),"baseData"),
-                        getItem(navLinkRendering("/permission","Permission","","single"),"permission")
+                        getItem(navLinkRendering("/setting/baseData","Base Data","","single"),"baseData"),
+                        getItem(navLinkRendering("/setting/permission","Permission","","single"),"permission")
                     ]
                     
         ),

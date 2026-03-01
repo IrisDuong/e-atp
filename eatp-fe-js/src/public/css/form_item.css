@@ -1,0 +1,24 @@
+.search-form{
+    padding: 40px 0 25px 0;
+}
+.search-form .ant-form-item{
+    padding-right: 40px;
+}
+.search-form .ant-select,.ant-input {
+    line-height : 1.9;
+    min-width : 180px
+}
+.search-form label{
+    font-size: medium;
+    font-weight: 600;
+    color: #3b565b;
+}
+/* .search-form .btn-search {
+    min-width: 130px;
+    min-height: 38px;
+    background: #2592a5;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: medium;
+    border: none;
+} */

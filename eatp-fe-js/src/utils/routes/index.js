@@ -1,4 +1,4 @@
-import BaseData from "../../views/settingMgt/baseData/BaseData";
+import BaseData from "../../views/settingMgt/baseData";
 const routes = [
     {
         path: "/setting/baseData",

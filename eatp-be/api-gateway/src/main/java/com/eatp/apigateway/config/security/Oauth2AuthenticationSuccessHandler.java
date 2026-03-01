@@ -67,8 +67,8 @@ public class Oauth2AuthenticationSuccessHandler implements ServerAuthenticationS
 						OAuth2User oAuth2User = oAuth2AuthenticationToken.getPrincipal();
 						
 						// set token to frontend
-						CookieUtils.setReactiveCookie(response, CookieUtils.ACCESS_TOKEN_COOKIE_NAME, accessToken, 0);
-						CookieUtils.setReactiveCookie(response, CookieUtils.REFRESH_TOKEN_COOKIE_NAME, refreshToken, 0);
+						CookieUtils.setReactiveCookie(response, CookieUtils.ACCESS_TOKEN_COOKIE_NAME, accessToken, 1800000);
+						CookieUtils.setReactiveCookie(response, CookieUtils.REFRESH_TOKEN_COOKIE_NAME, refreshToken, 3600000);
 						
 				
 						// Call grpc to create new user
