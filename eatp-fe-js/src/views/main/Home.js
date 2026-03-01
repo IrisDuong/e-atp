@@ -1,4 +1,5 @@
 import React from 'react'
+import {Outlet} from "react-router-dom";
 import {Layout} from "antd";
 import MainMenu from './menu/MainMenu';
 import TopHeader from './topHeader/TopHeader';
@@ -10,8 +11,16 @@ function Home() {
         {/* <TopHeader/> */}
         <Layout>
             <Sider 
-              width={350} className='sider'><MainMenu/></Sider>
-            <Content className='content'>content</Content>
+              width={350}
+              className='sider'
+            >
+                <MainMenu/>
+            </Sider>
+            <Content
+              className='content'
+            >
+              <Outlet/>
+            </Content>
         </Layout>
     </Layout>
   )

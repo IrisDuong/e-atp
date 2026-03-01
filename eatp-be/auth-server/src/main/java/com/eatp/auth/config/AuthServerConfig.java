@@ -80,8 +80,8 @@ public class AuthServerConfig {
 				.scope(OidcScopes.PROFILE)
 				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
 				.tokenSettings(TokenSettings.builder()
-						.accessTokenTimeToLive(Duration.ofMillis(600000))
-						.refreshTokenTimeToLive(Duration.ofMillis(1200000))
+						.accessTokenTimeToLive(Duration.ofMillis(300000))
+						.refreshTokenTimeToLive(Duration.ofMillis(900000))
 						.build()
 				).build();
 		return new InMemoryRegisteredClientRepository(gatewayClient);
