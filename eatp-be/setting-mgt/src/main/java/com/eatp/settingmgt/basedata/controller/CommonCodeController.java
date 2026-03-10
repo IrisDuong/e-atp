@@ -34,8 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class CommonCodeController {
-//	private final Logger log = LoggerFactory.getLogger(CommonCodeController.class);
-	
 	private final CommonCodeService commonCodeService;
 	
 	@PostMapping("/create")
@@ -62,11 +60,9 @@ public class CommonCodeController {
 	
 	@GetMapping("/detail/{commonCodeNo}")
 	public ResponseEntity<ApiResponse<CommonCodeResponseDTO>> searchCommonCode(@PathVariable Integer commonCodeNo){
-		CommonCodeResponseDTO result = CommonCodeResponseDTO.builder()
-				.commonCodeNo(commonCodeNo)
-				.featureCodeNo("IN")
-				.codeType(BaseCodeTypeEnums.MULTI)
-				.build();
+		if(SystemUtils.isEmptyData(commonCodeNo))
+			throw new BadRequestException("No data");
+		CommonCodeResponseDTO result = commonCodeService.getCommonCodeDetail(commonCodeNo);
 		if(SystemUtils.isEmptyData(result))
 			throw new NotFoundException("No data");
 		

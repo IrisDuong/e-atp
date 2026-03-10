@@ -45,26 +45,10 @@ public class LocaleInputCodeServiceImpl implements LocaleInputCodeService{
 			return false;
 		}
 	}
-
+	
 	@Override
-	public LocaleInputCodeDTO buildDTOFromEntity(LocaleInputCode e) {
-		return LocaleInputCodeDTO.builder()
-				.langCode(e.getId().getLangCode())
-				.localeCodeNo(e.getId().getLocaleCodeNo())
-				.codeName(e.getCodeName())
-				.build();
-	}
-
-	@Override
-	public LocaleInputCode buildEntityFromDto(LocaleInputCodeDTO d) {
-		Integer maxLocaleCodeNo = localeInputCodeRepo.findMaxLocaleCode();
-		LocaleInputCodePK localeInputCodeId = new LocaleInputCodePK();
-		localeInputCodeId.setLangCode(d.getLangCode());
-		localeInputCodeId.setLocaleCodeNo(maxLocaleCodeNo);
-		return LocaleInputCode.builder()
-				.id(localeInputCodeId)
-				.codeName(d.getCodeName())
-				.build();
+	public List<LocaleInputCode> findByLocaleCodeNo(Integer localeCodeNo) {
+		return localeInputCodeRepo.findById_LocaleCodeNo(localeCodeNo);
 	}
 
 }

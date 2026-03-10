@@ -2,6 +2,8 @@ package com.eatp.settingmgt.basedata.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eatp.common.enums.BaseCodeTypeEnums;
 import com.eatp.common.enums.BaseUseStatusEnums;
 import com.eatp.common.exception.BadRequestException;
+import com.eatp.common.exception.NotFoundException;
 import com.eatp.settingmgt.basedata.dto.CommonCodeRequestDTO;
 import com.eatp.settingmgt.basedata.dto.CommonCodeResponseDTO;
 import com.eatp.settingmgt.basedata.entity.CommonCode;
@@ -39,7 +42,12 @@ public class CommonCodeServiceImpl implements CommonCodeService{
 				throw new BadRequestException("Duplicate common code");
 			}
 			
+			Integer maxLocalCodeNo = localeInputCodeService.findMaxLocaleCode() + 1;
 			List<LocaleInputCode> localeInputCodes = param.getLocaleInputCodes().stream()
+					.map(e-> {
+						e.setLocaleCodeNo(maxLocalCodeNo);
+						return e;
+					})
 					.map(localeInputCodeService::buildEntityFromDto)
 					.toList();
 			localeInputCodeService.saveListLocaleInputCode(new ArrayList<>(localeInputCodes));
@@ -87,6 +95,23 @@ public class CommonCodeServiceImpl implements CommonCodeService{
 					.build();
 				}
 		).toList();
+	}
+
+	@Transactional
+	@Override
+	public CommonCodeResponseDTO getCommonCodeDetail(Integer commonCodeNo) {
+		CommonCode result = commonCodeRepo.findById(commonCodeNo)
+				.orElseThrow(()-> new NotFoundException("No common code with this param"));
+		
+		List<LocaleInputCodeDTO> listLocaleInputCodesDto = localeInputCodeService.findByLocaleCodeNo(result.getLocaleCodeNo()).stream()
+				.map(localeInputCodeService::buildDTOFromEntity).toList();
+				
+		return CommonCodeResponseDTO.builder().commonCodeNo(result.getCommonCodeNo())
+				.featureCodeNo(result.getFeatureCodeNo())
+				.codeType(BaseCodeTypeEnums.buildFromCodeTypeNo(result.getCodeTypeNo()))
+				.useStatus(BaseUseStatusEnums.buildFromStatusNo(result.getUseStatusNo()))
+				.localeInputCodes(listLocaleInputCodesDto)
+				.build();
 	}
 
 }
