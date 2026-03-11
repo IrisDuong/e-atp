@@ -5,24 +5,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.eatp.common.dto.response.ErrorResponse;
+import com.eatp.common.utils.DateUtils;
+
 @RestControllerAdvice
 public class ApplicationException {
 
-	public static ResponseEntity<BusinessException> doResponse(BusinessException ex){
-		return new ResponseEntity<BusinessException>(ex, HttpStatus.valueOf(ex.getHttpCode()));
+	public static ResponseEntity<ErrorResponse> doResponse(BaseException ex){
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpCode(), ex.getMessage(), DateUtils.getNowAsString(true));
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ex.getHttpCode()));
 	}
 	@ExceptionHandler(BadRequestException.class)
-	public ResponseEntity<BusinessException> handleBadRequest(BadRequestException ex){
+	public ResponseEntity<ErrorResponse> handleBadRequest(BadRequestException ex){
 		return doResponse(ex);
 	}
 
 	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<BusinessException> handleNotFound(NotFoundException ex){
+	public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex){
 		return doResponse(ex);
 	}
 
 	@ExceptionHandler(InternalServerErrorException.class)
-	public ResponseEntity<BusinessException> handleNotFound(InternalServerErrorException ex){
+	public ResponseEntity<ErrorResponse> handleNotFound(InternalServerErrorException ex){
 		return doResponse(ex);
 	}
 }
