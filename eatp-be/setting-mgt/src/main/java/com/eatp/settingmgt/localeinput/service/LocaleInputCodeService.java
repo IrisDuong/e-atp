@@ -8,14 +8,14 @@ import com.eatp.settingmgt.localeinput.entity.LocaleInputCode;
 import com.eatp.settingmgt.localeinput.entity.LocaleInputCodePK;
 
 public interface LocaleInputCodeService extends CustomDataConverter<LocaleInputCode, LocaleInputCodeDTO>{
-	List<LocaleInputCode> findByListLocaleCode(List<Integer> localeCodeParams);
+	List<LocaleInputCodeDTO> findByListLocaleCode(List<Integer> localeCodeParams);
 	boolean saveListLocaleInputCode(List<LocaleInputCode> entities);
 	boolean deleteByIds(List<LocaleInputCodePK> ids);
 	Integer findMaxLocaleCode();
-	List<LocaleInputCode> findByLocaleCodeNo(Integer localeCodeNo);
+	List<LocaleInputCodeDTO> findByLocaleCodeNo(Integer localeCodeNo);
 	
 	@Override
-	default LocaleInputCodeDTO buildDTOFromEntity(LocaleInputCode e) {
+	default LocaleInputCodeDTO convertToDto(LocaleInputCode e) {
 		return LocaleInputCodeDTO.builder()
 				.langCode(e.getId().getLangCode())
 				.localeCodeNo(e.getId().getLocaleCodeNo())
@@ -23,7 +23,7 @@ public interface LocaleInputCodeService extends CustomDataConverter<LocaleInputC
 				.build();
 	}
 	@Override
-	default LocaleInputCode buildEntityFromDto(LocaleInputCodeDTO d) {
+	default LocaleInputCode convertToEntity(LocaleInputCodeDTO d) {
 		LocaleInputCodePK id = LocaleInputCodePK.builder()
 				.langCode(d.getLangCode())
 				.localeCodeNo(d.getLocaleCodeNo())

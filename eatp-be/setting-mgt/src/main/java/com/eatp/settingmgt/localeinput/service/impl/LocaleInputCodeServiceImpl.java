@@ -16,8 +16,9 @@ public class LocaleInputCodeServiceImpl implements LocaleInputCodeService{
 	private final LocaleInputCodeRepo localeInputCodeRepo;
 
 	@Override
-	public List<LocaleInputCode> findByListLocaleCode(List<Integer> localeCodeNoParams) {
-		return localeInputCodeRepo.findById_LocaleCodeNoIn(localeCodeNoParams);
+	public List<LocaleInputCodeDTO> findByListLocaleCode(List<Integer> localeCodeNoParams) {
+		return localeInputCodeRepo.findById_LocaleCodeNoIn(localeCodeNoParams)
+				.stream().map(this::convertToDto).toList();
 	}
 
 	@Override
@@ -47,8 +48,9 @@ public class LocaleInputCodeServiceImpl implements LocaleInputCodeService{
 	}
 	
 	@Override
-	public List<LocaleInputCode> findByLocaleCodeNo(Integer localeCodeNo) {
-		return localeInputCodeRepo.findById_LocaleCodeNo(localeCodeNo);
+	public List<LocaleInputCodeDTO> findByLocaleCodeNo(Integer localeCodeNo) {
+		return localeInputCodeRepo.findById_LocaleCodeNo(localeCodeNo)
+				.stream().map(this::convertToDto).toList();
 	}
 
 }

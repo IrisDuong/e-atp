@@ -72,7 +72,7 @@ public class GeneralCodeServiceImpl implements GeneralCodeService{
 					.map(item-> new LocaleInputCodePK(item.getLangCode(), item.getLocaleCodeNo())).toList();
 			localeInputCodeService.deleteByIds(existedLocaleInputCodeIds);
 		}
-		List<LocaleInputCode> newLocaleInputCodes = param.getLocaleInputCodes().stream().map(localeInputCodeService::buildEntityFromDto).toList();
+		List<LocaleInputCode> newLocaleInputCodes = param.getLocaleInputCodes().stream().map(localeInputCodeService::convertToEntity).toList();
 		localeInputCodeService.saveListLocaleInputCode(new ArrayList<>(newLocaleInputCodes));
 
 
@@ -108,11 +108,10 @@ public class GeneralCodeServiceImpl implements GeneralCodeService{
 			
 			List<Integer> localeCodeParams = dataResult.stream()
 					.map(GeneralCodeResponseDTO::getLocaleCodeNo).toList();
-			List<LocaleInputCode> listLocaleInputCodes = localeInputCodeService.findByListLocaleCode(localeCodeParams);
+			List<LocaleInputCodeDTO> listLocaleInputCodes = localeInputCodeService.findByListLocaleCode(localeCodeParams);
 			dataResult.stream().forEach(generalCode->{
 				List<LocaleInputCodeDTO> listLocaleInputCodesDTO = listLocaleInputCodes.stream()
-						.filter(item-> item.getId().getLocaleCodeNo() == generalCode.getLocaleCodeNo())
-						.map(localeInputCodeService::buildDTOFromEntity)
+						.filter(item-> item.getLocaleCodeNo() == generalCode.getLocaleCodeNo())
 						.toList();
 				generalCode.setLocaleInputCodes(listLocaleInputCodesDTO);
 			});
