@@ -15,8 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommonCodeRequestDTO{
 	private Integer commonCodeNo;
+	private String commonCodeName;
 	private String featureCodeNo;
-	protected String codeTypeNo;
-	protected String useStatusNo;
+	private String codeTypeNo;
+	private String useStatusNo;
 	private List<LocaleInputCodeDTO> localeInputCodes;
 }

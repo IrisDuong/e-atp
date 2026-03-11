@@ -12,6 +12,7 @@ import com.eatp.common.enums.BaseCodeTypeEnums;
 import com.eatp.common.enums.BaseUseStatusEnums;
 import com.eatp.common.exception.BadRequestException;
 import com.eatp.common.exception.NotFoundException;
+import com.eatp.common.utils.JpaUtils;
 import com.eatp.settingmgt.basedata.dto.CommonCodeRequestDTO;
 import com.eatp.settingmgt.basedata.dto.CommonCodeResponseDTO;
 import com.eatp.settingmgt.basedata.entity.CommonCode;
@@ -22,7 +23,10 @@ import com.eatp.settingmgt.localeinput.entity.LocaleInputCode;
 import com.eatp.settingmgt.localeinput.service.LocaleInputCodeService;
 
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -48,7 +52,7 @@ public class CommonCodeServiceImpl implements CommonCodeService{
 						e.setLocaleCodeNo(maxLocalCodeNo);
 						return e;
 					})
-					.map(localeInputCodeService::buildEntityFromDto)
+					.map(localeInputCodeService::convertToEntity)
 					.toList();
 			localeInputCodeService.saveListLocaleInputCode(new ArrayList<>(localeInputCodes));
 			
@@ -60,41 +64,47 @@ public class CommonCodeServiceImpl implements CommonCodeService{
 			commonCodeRepo.save(commonCodeToSave);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new Exception("Create common code failed");
 		}
 	}
 
 	@Override
 	public List<CommonCodeResponseDTO> searchCommonCodes(CommonCodeRequestDTO param) {
-		Specification<CommonCode> specSearch = (root,query,cb)->{
-			List<Predicate> predicates = new ArrayList<Predicate>();
-			predicates.add(cb.equal(root.get("featureCodeNo"),param.getFeatureCodeNo()));
-//			predicates.add(cb.or(cb.isNull(root.get("commonCodeNo")), cb.like(cb.lower(root.get("commonCodeNo")), JpaUtils.likeParamsFormater(param.getCommonCodeNo(), false))));
-			predicates.add(cb.or(cb.isNull(root.get("codeTypeNo")), cb.equal(root.get("codeTypeNo"), param.getCodeTypeNo())));
-			predicates.add(cb.or(cb.isNull(root.get("useStatusNo")), cb.equal(root.get("useStatusNo"), param.getUseStatusNo())));
+		Specification<CommonCode> sepeSpecification = (root,query,cb)->{
+			// localeInputCode
+			Subquery<Integer> licSubquery = query.subquery(Integer.class);
+			Root<LocaleInputCode> licRoot  = licSubquery.from(LocaleInputCode.class);
+			licSubquery.select(licRoot.get("id").get("localeCodeNo"))
+						.where(cb.like(licRoot.get("codeName"), JpaUtils.likeParamsFormater(param.getCommonCodeName(), true)));
+			
+			// commonCode
+			List<Predicate> predicates = List.of(
+					cb.or(
+							cb.isNotNull(root.get("commonCodeNo")),
+							cb.equal(root.get("commonCodeNo"), param.getCommonCodeNo())
+					),
+					cb.equal(root.get("featureCodeNo"), param.getFeatureCodeNo()),
+					cb.equal(root.get("useStatusNo"), param.getUseStatusNo()),
+					cb.equal(root.get("codeTypeNo"), param.getCodeTypeNo()),
+					root.get("localeCodeNo").in(licSubquery)
+					
+			);
 			return cb.and(predicates.toArray(new Predicate[0]));
 		};
-		var dataResult = commonCodeRepo.findAll(specSearch);
-		
-		List<Integer> localeCodeParams = dataResult.stream()
-				.map(CommonCode::getLocaleCodeNo).toList();
-		List<LocaleInputCode> listLocaleInputCodes = localeInputCodeService.findByListLocaleCode(localeCodeParams);
-		
-		return dataResult.stream()
-				.map(item->  {
-					List<LocaleInputCodeDTO> listLocaleInputCodesDTO = listLocaleInputCodes.stream()
-							.filter(localeInputCode-> localeInputCode.getId().getLocaleCodeNo() == item.getLocaleCodeNo())
-							.map(localeInputCodeService::buildDTOFromEntity).toList();
-					return CommonCodeResponseDTO.builder()
-					.commonCodeNo(item.getCommonCodeNo())
-					.featureCodeNo(item.getFeatureCodeNo())
-					.codeType(BaseCodeTypeEnums.buildFromCodeTypeNo(item.getCodeTypeNo()))
-					.useStatus(BaseUseStatusEnums.buildFromStatusNo(item.getUseStatusNo()))
-					.localeInputCodes(listLocaleInputCodesDTO)
+		var queryResult = commonCodeRepo.findAll(sepeSpecification);
+		var  listLocaleInputCodesDto = localeInputCodeService.findByListLocaleCode(queryResult.stream().map(CommonCode::getLocaleCodeNo).toList());
+		return queryResult.stream().map(code->{
+			return CommonCodeResponseDTO.builder()
+					.commonCodeNo(code.getCommonCodeNo())
+					.featureCodeNo(code.getFeatureCodeNo())
+					.codeType(BaseCodeTypeEnums.buildFromCodeTypeNo(code.getCodeTypeNo()))
+					.useStatus(BaseUseStatusEnums.buildFromStatusNo(code.getUseStatusNo()))
+					.localeInputCodes(
+							listLocaleInputCodesDto.stream()
+							.filter(lic-> lic.getLocaleCodeNo().equals(code.getLocaleCodeNo())).toList()
+					)
 					.build();
-				}
-		).toList();
+		}).toList();
 	}
 
 	@Transactional
@@ -103,10 +113,10 @@ public class CommonCodeServiceImpl implements CommonCodeService{
 		CommonCode result = commonCodeRepo.findById(commonCodeNo)
 				.orElseThrow(()-> new NotFoundException("No common code with this param"));
 		
-		List<LocaleInputCodeDTO> listLocaleInputCodesDto = localeInputCodeService.findByLocaleCodeNo(result.getLocaleCodeNo()).stream()
-				.map(localeInputCodeService::buildDTOFromEntity).toList();
+		List<LocaleInputCodeDTO> listLocaleInputCodesDto = localeInputCodeService.findByLocaleCodeNo(result.getLocaleCodeNo());
 				
-		return CommonCodeResponseDTO.builder().commonCodeNo(result.getCommonCodeNo())
+		return CommonCodeResponseDTO.builder()
+				.commonCodeNo(result.getCommonCodeNo())
 				.featureCodeNo(result.getFeatureCodeNo())
 				.codeType(BaseCodeTypeEnums.buildFromCodeTypeNo(result.getCodeTypeNo()))
 				.useStatus(BaseUseStatusEnums.buildFromStatusNo(result.getUseStatusNo()))
