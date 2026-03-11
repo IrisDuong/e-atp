@@ -2,6 +2,6 @@ package com.eatp.common.service;
 
 public interface CustomDataConverter<E,D> {
 
-	D buildDTOFromEntity(E e);
-	E buildEntityFromDto(D d);
+	D convertToDto(E e);
+	E convertToEntity(D d);
 }
