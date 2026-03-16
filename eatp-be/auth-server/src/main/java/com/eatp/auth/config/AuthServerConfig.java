@@ -50,11 +50,11 @@ import com.nimbusds.jose.proc.SecurityContext;
 @Configuration
 public class AuthServerConfig {
 
-	@Value("${url.auth-server}")
-	String authServerURL;
-
-	@Value("${url.gateway}")
-	String gatewayURL;
+	@Value("${url.public.auth-server}")
+	String publicAuthServerURL;
+	
+	@Value("${url.public.gateway}")
+	String publicGatewayURL;
 
 	@Value("${sec.oauth2.gateway.client-id}")
 	String gatewayClientId;
@@ -74,14 +74,14 @@ public class AuthServerConfig {
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.redirectUri(gatewayURL.concat("/login/oauth2/code/").concat(gatewayClientId))
+				.redirectUri(publicGatewayURL.concat("/login/oauth2/code/").concat(gatewayClientId))
 				.scope(OidcScopes.OPENID)
 				.scope(OidcScopes.EMAIL)
 				.scope(OidcScopes.PROFILE)
 				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(false).build())
 				.tokenSettings(TokenSettings.builder()
-						.accessTokenTimeToLive(Duration.ofMillis(300000))
-						.refreshTokenTimeToLive(Duration.ofMillis(900000))
+						.accessTokenTimeToLive(Duration.ofMillis(1800000))
+						.refreshTokenTimeToLive(Duration.ofMillis(2400000))
 						.build()
 				).build();
 		return new InMemoryRegisteredClientRepository(gatewayClient);
@@ -109,7 +109,7 @@ public class AuthServerConfig {
 	@Bean
 	public AuthorizationServerSettings authorizationServerSettings() {
 		return AuthorizationServerSettings.builder()
-				.issuer(authServerURL).build();
+				.issuer(publicAuthServerURL).build();
 	}
 
 	@Bean

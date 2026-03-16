@@ -28,19 +28,19 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/authen")
 public class AuthenController {
 
-	@Value("${url.auth-server}")
-	private String authServerURL;
+	@Value("${url.public.auth-server}")
+	String publicAuthServerURL;
 
-	@Value("${url.gateway}")
-	private String gatewayURL;
+	@Value("${url.public.gateway}")
+	private String publicGatewayURL;
 
 	@Value("${url.front-end}")
 	private String feURL;
 	
 	@GetMapping("/logout/handle")
 	public Mono<Void> handleLogout(ServerWebExchange webExchange){
-		String logoutRedirectURI = UriComponentsBuilder.fromUriString(authServerURL.concat("/logout"))
-				.queryParam("post_logout_redirect_uri", gatewayURL.concat("/authen/logout/success"))
+		String logoutRedirectURI = UriComponentsBuilder.fromUriString(publicAuthServerURL.concat("/logout"))
+				.queryParam("post_logout_redirect_uri", publicGatewayURL.concat("/authen/logout/success"))
 				.build().toUriString();
 		ServerHttpResponse response = webExchange.getResponse();
 		response.setStatusCode(HttpStatus.FOUND);
