@@ -18,3 +18,4 @@ git-guideline.png
 **/target/
 **/bin/
 
+eatp-be/common-utils/.factorypath
