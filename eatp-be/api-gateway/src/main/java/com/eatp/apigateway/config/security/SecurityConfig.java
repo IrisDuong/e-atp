@@ -18,9 +18,9 @@ public class SecurityConfig {
 
 	private final Oauth2AuthenticationSuccessHandler authenSuccessHandler;
 	private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
-	
-	@Value("${url.auth-server}")
-	private String authServerURL;
+
+	@Value("${INTERNAL_URL_AUTH_SERVER}")
+	String internalAuthServerURL;
 	
 	public SecurityConfig(
 			Oauth2AuthenticationSuccessHandler authenSuccessHandler
@@ -50,6 +50,6 @@ public class SecurityConfig {
 
 	@Bean
 	public ReactiveJwtDecoder jwtDecoder() {
-		return NimbusReactiveJwtDecoder.withJwkSetUri(authServerURL.concat("/oauth2/jwks")).build();
+		return NimbusReactiveJwtDecoder.withJwkSetUri(internalAuthServerURL.concat("/oauth2/jwks")).build();
 	}
 }

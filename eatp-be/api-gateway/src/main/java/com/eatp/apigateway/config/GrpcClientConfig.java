@@ -29,10 +29,7 @@ public class GrpcClientConfig {
 	
 	@Bean
 	public ManagedChannel userServiceChanel() {
-		List<ServiceInstance> serviceInstances = discoveryClient.getInstances("user-mgt");
-		if(serviceInstances.isEmpty())
-			throw new IllegalStateException("No instance of user-management-service");
-		return ManagedChannelBuilder.forAddress(serviceInstances.get(0).getHost(), grpcPortUserMgt).usePlaintext().build();
+		return ManagedChannelBuilder.forAddress("user-mgt", grpcPortUserMgt).usePlaintext().build();
 	}
 
 	@Bean

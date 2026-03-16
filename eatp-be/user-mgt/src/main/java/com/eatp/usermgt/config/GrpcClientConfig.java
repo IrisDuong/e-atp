@@ -29,10 +29,7 @@ public class GrpcClientConfig {
 	
 	@Bean
 	public ManagedChannel notificationServiceChanel() {
-		List<ServiceInstance> servicesInstance = discoveryClient.getInstances("notification");
-		if(servicesInstance.isEmpty())
-			throw new IllegalStateException("No instance of notification-service");
-		return ManagedChannelBuilder.forAddress(servicesInstance.get(0).getHost(), grpcPortNotification)
+		return ManagedChannelBuilder.forAddress("notification", grpcPortNotification)
 				.usePlaintext().build();
 	}
 	
